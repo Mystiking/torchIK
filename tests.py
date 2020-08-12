@@ -66,6 +66,25 @@ def test_vector3_k():
 
     assert(torch.norm(xex - x) == 0)
 
+def test_vector3_cross():
+    at = torch.tensor([1.0, 2.0, 3.0])
+    bt = torch.tensor([3.0, 2.0, 1.0])
+    ct = V3.cross(at, bt)
+
+    import numpy as np
+    anp = np.array([1.0, 2.0, 3.0])
+    bnp = np.array([3.0, 2.0, 1.0])
+    cnp = np.cross(anp, bnp)
+
+    assert(torch.norm(ct - torch.from_numpy(cnp)) == 0)
+
+def test_vector3_norm():
+    at = torch.tensor([1.0, 2.0, 3.0])
+    import numpy as np
+    anp = np.array([1.0, 2.0, 3.0])
+
+    assert(V3.norm(at) - np.linalg.norm(anp) == 0)
+
 if __name__ == '__main__':
     test_grad()
     test_hess()
@@ -74,3 +93,5 @@ if __name__ == '__main__':
     test_vector3_i()
     test_vector3_j()
     test_vector3_k()
+    test_vector3_cross()
+    test_vector3_norm()
