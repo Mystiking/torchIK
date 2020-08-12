@@ -1,5 +1,6 @@
 import utils as U
 import torch
+import Math.vector3 as V3
 
 def rosenbrock(x, y):
     a = torch.tensor([1.0])
@@ -35,6 +36,41 @@ def test_hess():
 
     assert(torch.norm(analytical_ddx - auto_ddx) == 0)
 
+def test_vector3_zero():
+    xex = torch.zeros((3,))
+    x = V3.zero()
+
+    assert(torch.norm(xex - x) == 0)
+
+def test_vector3_make():
+    xex = torch.tensor([1.0, 2.0, 3.0])
+    x = V3.make(1, 2, 3)
+
+    assert(torch.norm(xex - x) == 0)
+
+def test_vector3_i():
+    xex = torch.tensor([1.0, 0.0, 0.0])
+    x = V3.i()
+
+    assert(torch.norm(xex - x) == 0)
+
+def test_vector3_j():
+    xex = torch.tensor([0.0, 1.0, 0.0])
+    x = V3.j()
+
+    assert(torch.norm(xex - x) == 0)
+
+def test_vector3_k():
+    xex = torch.tensor([0.0, 0.0, 1.0])
+    x = V3.k()
+
+    assert(torch.norm(xex - x) == 0)
+
 if __name__ == '__main__':
     test_grad()
     test_hess()
+    test_vector3_zero()
+    test_vector3_make()
+    test_vector3_i()
+    test_vector3_j()
+    test_vector3_k()
